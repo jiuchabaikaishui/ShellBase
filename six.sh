@@ -46,10 +46,16 @@ done
 # while 语句
 
 int=1
-while (($int<=5))
+while (( ${int}<=5))
 do 
-	echo $int
+	echo ${int}
 	let "int++"
+done
+
+while [ ${int} -gt 0 ]
+do
+	echo ${int}
+	int=`expr ${int} - 1`
 done
 
 echo "按下 <CTRL-D> 退出"
@@ -60,6 +66,88 @@ do
 done
 
 
+# until 语句
+
 a=0
-until [ ${a}<5 ]
+until [ ${a} -ge 10 ]
+do
+  	 echo ${a}
+  	 a=`expr $a + 1`
+done
+
+a=0
+until (( ${a}>=10 ))
+do
+	echo ${a}
+	let a++
+done
+
+
+# case 语句
+
+echo "输入一个1~4之间的数："
+read num
+case ${num} in
+	1)
+	echo "输入了1"
+	;;
+	2)
+	echo "输入了2"
+	;;
+	3)
+	echo "输入了3"
+	;;
+	4)
+	echo "输入了4"
+	;;
+	*)
+	echo "输入不合法"
+	;;
+esac
+
+site="baidu"
+case "${site}" in
+	"baidu")
+	echo "百度"
+	;;
+	"google")
+	echo "谷歌"
+	;;
+	"taobao")
+	echo "淘宝"
+	;;
+esac
+
+
+# 跳出循环
+
+while :
+do
+	echo "输入一个数："
+	read nu
+	case ${nu} in
+		1|2|3)
+		echo "输入了${nu}"
+		;;
+		*)
+		echo "游戏结束"
+		break
+		;;
+	esac
+done
+
+while :
+do
+	echo "输入一个数："
+	read nu1
+	case ${nu1} in
+		1|2|3)
+		echo "输入了$(nu1)"
+		;;
+		*)
+		continue
+		echo "游戏结束"
+		;;
+	esac
+done
 
